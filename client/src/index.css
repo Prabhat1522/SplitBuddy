@@ -1,8 +1,25 @@
+@import "tailwindcss";
+
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-primary-50: #f0fdf4;
+  --color-primary-100: #dcfce7;
+  --color-primary-200: #bbf7d0;
+  --color-primary-300: #86efac;
+  --color-primary-400: #4ade80;
+  --color-primary-500: #22c55e;
+  --color-primary-600: #16a34a;
+  --color-primary-700: #15803d;
+  --color-primary-800: #166534;
+  --color-primary-900: #14532d;
+
+  --color-darkBg: #0b0f19;
+  --color-cardBg: #161e31;
+  --color-borderBg: #24304f;
+
+  --font-sans: 'Outfit', 'Inter', 'system-ui', 'sans-serif';
+}
 
 @layer base {
   body {
