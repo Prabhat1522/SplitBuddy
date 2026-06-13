@@ -91,6 +91,7 @@ exports.importCsv = async (req, res, next) => {
 
       const detectedAnomalies = [];
       let skipRow = false;
+      let parsedType = 'EQUAL';
 
       // --- ANOMALY 1: Zero Amount Rows ---
       const originalAmount = parseFloat(amountStr);
@@ -256,7 +257,7 @@ exports.importCsv = async (req, res, next) => {
       // --- ANOMALY 9, 10, 11: Split details & participant validation ---
       let finalShares = [];
       if (!skipRow && !isSettlementRow) {
-        let parsedType = splitType || 'EQUAL';
+        parsedType = splitType || 'EQUAL';
         if (!['EQUAL', 'EXACT', 'PERCENTAGE'].includes(parsedType)) {
           parsedType = 'EQUAL';
           detectedAnomalies.push({
@@ -591,7 +592,7 @@ exports.importCsv = async (req, res, next) => {
               INSERT INTO expenses 
               (group_id, paid_by_id, description, original_amount, original_currency, exchange_rate, converted_amount_inr, split_type, created_at)
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            `, [groupId, resolvedPayerId, description.trim(), resolvedAmount, resolvedCurrency, resolvedExchangeRate, convertedAmountInr, splitType || 'EQUAL', resolvedDate]);
+            `, [groupId, resolvedPayerId, description.trim(), resolvedAmount, resolvedCurrency, resolvedExchangeRate, convertedAmountInr, parsedType, resolvedDate]);
 
             const expenseId = expResult.insertId;
 
